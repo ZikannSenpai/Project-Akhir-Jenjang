@@ -12,7 +12,7 @@
     --font-mono: var(--font-geist-mono);
 }
 
-@* {
+* {
     box-sizing: border-box;
 }
 
