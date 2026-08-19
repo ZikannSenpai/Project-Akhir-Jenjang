@@ -917,7 +917,7 @@ export function FuelEstimatorApp() {
                                 </p>
 
                                 <p className="mt-2 text-xl font-semibold">
-                                    Anda
+                                    ZikaNyawDev
                                 </p>
 
                                 <p className="mt-2 text-sm text-white/65">
@@ -930,7 +930,7 @@ export function FuelEstimatorApp() {
                                 <p className="text-sm text-white/55">Asisten</p>
 
                                 <p className="mt-2 text-xl font-semibold">
-                                    TRAE AI
+                                    Anggota kelompok
                                 </p>
 
                                 <p className="mt-2 text-sm text-white/65">
