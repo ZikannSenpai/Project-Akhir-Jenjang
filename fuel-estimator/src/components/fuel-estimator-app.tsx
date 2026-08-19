@@ -337,7 +337,7 @@ export function FuelEstimatorApp() {
                                         src="https://www.pngitem.com/pimgs/m/225-2256345_transparent-sepeda-motor-png-honda-beat-2019-png.png"
                                         alt={item.label}
                                         containerClassName="h-52 w-full"
-                                        imageClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+                                        imageClassName="object-contain transition-transform duration-500 group-hover:scale-105"
                                     />
                                     <div className="space-y-3 p-5">
                                         <div className="flex items-center justify-between">
