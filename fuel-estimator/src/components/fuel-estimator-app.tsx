@@ -288,10 +288,7 @@ export function FuelEstimatorApp() {
 
                     <div className="overflow-hidden rounded-[2rem] border border-violet-400/20 bg-white/5 p-5 shadow-[0_0_50px_rgba(139,92,246,0.18)]">
                         <RemoteImage
-                            src={buildAiImageUrl(
-                                "realistic modern black car and motorcycle on a futuristic dark purple road, premium cinematic lighting, high detail automotive visual",
-                                "portrait_16_9"
-                            )}
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu7NsZPgsqmjz8rCMRSwvn18ty7z_6S1IKfxFfabwa8w&s=10"
                             alt="Ilustrasi kendaraan"
                             containerClassName="h-full min-h-[340px] w-full rounded-[1.5rem]"
                             imageClassName="object-cover"
