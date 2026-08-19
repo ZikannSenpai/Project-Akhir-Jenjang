@@ -1,14 +1,40 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
-import {
-    buildAiImageUrl,
-    vehicleCatalog,
-    WEBSITE_NAME,
-    type VehicleCategory
-} from "@/data/vehicles";
+import vehicleData from "@/data/vehicles.json";
 import { RevealSection } from "@/components/reveal-section";
+
+type VehicleCategory = "motor" | "mobil";
+
+type VehicleModel = {
+    id: string;
+    name: string;
+    year: number;
+    description: string;
+    image: string;
+    fuelEfficiencyKmPerLiter: number;
+    tankCapacityLiters: number;
+};
+
+type VehicleBrand = {
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    models: VehicleModel[];
+};
+
+type VehicleCategoryData = {
+    label: string;
+    subtitle: string;
+    image: string;
+    brands: VehicleBrand[];
+};
+
+type VehicleCatalog = {
+    motor: VehicleCategoryData;
+    mobil: VehicleCategoryData;
+};
 
 type RangeResponse = {
     vehicleName: string;
@@ -35,32 +61,44 @@ type TripResponse = {
     fuelEfficiencyKmPerLiter: number;
 };
 
+const vehicleCatalog = vehicleData.categories as VehicleCatalog;
+const WEBSITE_NAME = vehicleData.websiteName;
+
 const categories: VehicleCategory[] = ["motor", "mobil"];
 
 export function FuelEstimatorApp() {
     const [selectedCategory, setSelectedCategory] =
         useState<VehicleCategory>("motor");
+
     const [selectedBrandId, setSelectedBrandId] = useState("");
     const [selectedModelId, setSelectedModelId] = useState("");
     const [liters, setLiters] = useState("2");
+
     const [destinationQuery, setDestinationQuery] = useState("");
+
     const [origin, setOrigin] = useState<{
         latitude: number;
         longitude: number;
     } | null>(null);
+
     const [rangeResult, setRangeResult] = useState<RangeResponse | null>(null);
+
     const [tripResult, setTripResult] = useState<TripResponse | null>(null);
+
     const [rangeError, setRangeError] = useState("");
     const [tripError, setTripError] = useState("");
+
     const [isRangeLoading, setIsRangeLoading] = useState(false);
     const [isTripLoading, setIsTripLoading] = useState(false);
     const [isLocating, setIsLocating] = useState(false);
 
     const selectedCategoryData = vehicleCatalog[selectedCategory];
+
     const selectedBrand =
         selectedCategoryData.brands.find(
             brand => brand.id === selectedBrandId
         ) ?? null;
+
     const selectedModel =
         selectedBrand?.models.find(model => model.id === selectedModelId) ??
         null;
@@ -84,8 +122,16 @@ export function FuelEstimatorApp() {
         }
 
         const parsedLiters = Number(liters);
+
         if (!Number.isFinite(parsedLiters) || parsedLiters <= 0) {
             setRangeError("Masukkan volume bensin yang valid.");
+            return;
+        }
+
+        if (selectedModel && parsedLiters > selectedModel.tankCapacityLiters) {
+            setRangeError(
+                `Volume bensin tidak boleh lebih dari kapasitas tangki ${selectedModel.tankCapacityLiters} L.`
+            );
             return;
         }
 
@@ -175,6 +221,13 @@ export function FuelEstimatorApp() {
             return;
         }
 
+        const parsedLiters = Number(liters);
+
+        if (!Number.isFinite(parsedLiters) || parsedLiters <= 0) {
+            setTripError("Masukkan volume bensin yang valid.");
+            return;
+        }
+
         setIsTripLoading(true);
 
         try {
@@ -190,7 +243,7 @@ export function FuelEstimatorApp() {
                     originLat: origin.latitude,
                     originLng: origin.longitude,
                     destinationQuery,
-                    availableFuelLiters: liters ? Number(liters) : undefined
+                    availableFuelLiters: parsedLiters
                 })
             });
 
@@ -247,10 +300,12 @@ export function FuelEstimatorApp() {
                         <p className="text-xs uppercase tracking-[0.4em] text-violet-300/80">
                             Estimasi Bensin Responsif
                         </p>
+
                         <h1 className="text-2xl font-semibold tracking-tight">
                             {WEBSITE_NAME}
                         </h1>
                     </div>
+
                     <div className="hidden rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-sm text-violet-100 md:block">
                         Backend TypeScript + Siap Deploy Vercel
                     </div>
@@ -263,10 +318,12 @@ export function FuelEstimatorApp() {
                         <span className="inline-flex rounded-full border border-violet-400/30 bg-violet-500/15 px-4 py-1 text-xs uppercase tracking-[0.35em] text-violet-200">
                             Fuel Distance Estimator
                         </span>
+
                         <h2 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                             Ketahui estimasi jarak tempuh bensin kendaraan Anda
                             sebelum perjalanan dimulai.
                         </h2>
+
                         <p className="mt-5 max-w-2xl text-base leading-8 text-white/70 md:text-lg">
                             {WEBSITE_NAME} membantu meminimalisir risiko
                             kehabisan bensin saat berkendara dekat maupun jauh
@@ -274,6 +331,7 @@ export function FuelEstimatorApp() {
                             volume bensin, dan GEBDT untuk kebutuhan rute
                             aktual.
                         </p>
+
                         <div className="mt-8 grid gap-3 sm:grid-cols-3">
                             {vehicleHighlights.map(item => (
                                 <div
@@ -288,10 +346,10 @@ export function FuelEstimatorApp() {
 
                     <div className="overflow-hidden rounded-[2rem] border border-violet-400/20 bg-white/5 p-5 shadow-[0_0_50px_rgba(139,92,246,0.18)]">
                         <RemoteImage
-                            src="https://png.pngtree.com/png-clipart/20220921/ourmid/pngtree-latest-red-car-illustration-png-image_6208249.png"
-                            alt="Ilustrasi kendaraan"
+                            src={vehicleCatalog.mobil.image}
+                            alt="Ilustrasi mobil"
                             containerClassName="h-full min-h-[340px] w-full rounded-[1.5rem]"
-                            imageClassName="object-cover"
+                            imageClassName="object-contain"
                             priority
                         />
                     </div>
@@ -305,9 +363,11 @@ export function FuelEstimatorApp() {
                         <p className="text-sm uppercase tracking-[0.3em] text-violet-200/80">
                             Page Utama
                         </p>
+
                         <h3 className="text-2xl font-semibold">
                             Pilih tipe kendaraan
                         </h3>
+
                         <p className="max-w-3xl text-white/65">
                             Pilih salah satu opsi berikut untuk menampilkan
                             merek, jenis kendaraan, dan tahun pembuatan yang
@@ -318,6 +378,7 @@ export function FuelEstimatorApp() {
                     <div className="grid gap-5 md:grid-cols-2">
                         {categories.map(category => {
                             const item = vehicleCatalog[category];
+
                             const active = selectedCategory === category;
 
                             return (
@@ -334,20 +395,23 @@ export function FuelEstimatorApp() {
                                     }`}
                                 >
                                     <RemoteImage
-                                        src="https://www.pngitem.com/pimgs/m/225-2256345_transparent-sepeda-motor-png-honda-beat-2019-png.png"
+                                        src={item.image}
                                         alt={item.label}
                                         containerClassName="h-52 w-full"
                                         imageClassName="object-contain transition-transform duration-500 group-hover:scale-105"
                                     />
+
                                     <div className="space-y-3 p-5">
                                         <div className="flex items-center justify-between">
                                             <h4 className="text-2xl font-semibold">
                                                 {item.label}
                                             </h4>
+
                                             <span className="rounded-full border border-violet-300/20 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-violet-200">
                                                 {active ? "Terpilih" : "Pilih"}
                                             </span>
                                         </div>
+
                                         <p className="text-sm leading-7 text-white/65">
                                             {item.subtitle}
                                         </p>
@@ -366,10 +430,12 @@ export function FuelEstimatorApp() {
                         <p className="text-sm uppercase tracking-[0.3em] text-violet-200/80">
                             Merek Kendaraan
                         </p>
+
                         <h3 className="mt-2 text-2xl font-semibold">
                             Semua merek{" "}
                             {selectedCategoryData.label.toLowerCase()}
                         </h3>
+
                         <p className="mt-3 text-sm leading-7 text-white/65">
                             Pilih merek untuk menampilkan jenis kendaraan dan
                             tahun pembuatan yang tersedia pada katalog estimasi.
@@ -393,23 +459,24 @@ export function FuelEstimatorApp() {
                                         }`}
                                     >
                                         <RemoteImage
-                                            src={buildAiImageUrl(
-                                                brand.imagePrompt
-                                            )}
+                                            src={brand.image}
                                             alt={brand.name}
                                             containerClassName="h-36 w-full"
-                                            imageClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+                                            imageClassName="object-contain p-8 transition-transform duration-500 group-hover:scale-105"
                                         />
+
                                         <div className="flex items-center justify-between p-4">
                                             <div>
                                                 <h4 className="text-lg font-semibold">
                                                     {brand.name}
                                                 </h4>
+
                                                 <p className="text-sm text-white/60">
                                                     {brand.models.length} jenis
                                                     kendaraan
                                                 </p>
                                             </div>
+
                                             <span className="text-xs uppercase tracking-[0.25em] text-violet-200/70">
                                                 {active ? "Aktif" : "Tap"}
                                             </span>
@@ -424,11 +491,13 @@ export function FuelEstimatorApp() {
                         <p className="text-sm uppercase tracking-[0.3em] text-violet-200/80">
                             Jenis Kendaraan
                         </p>
+
                         <h3 className="mt-2 text-2xl font-semibold">
                             {selectedBrand
                                 ? `Model ${selectedBrand.name}`
                                 : "Pilih merek terlebih dahulu"}
                         </h3>
+
                         <p className="mt-3 text-sm leading-7 text-white/65">
                             Setelah memilih model, Anda dapat mengisi volume
                             bensin untuk melihat estimasi jarak tempuh hingga
@@ -454,23 +523,24 @@ export function FuelEstimatorApp() {
                                             }`}
                                         >
                                             <RemoteImage
-                                                src={buildAiImageUrl(
-                                                    model.imagePrompt
-                                                )}
+                                                src={model.image}
                                                 alt={`${model.name} ${model.year}`}
                                                 containerClassName="h-40 w-full"
-                                                imageClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                imageClassName="object-contain transition-transform duration-500 group-hover:scale-105"
                                             />
+
                                             <div className="space-y-3 p-4">
                                                 <div className="flex items-start justify-between gap-4">
                                                     <div>
                                                         <h4 className="text-lg font-semibold">
                                                             {model.name}
                                                         </h4>
+
                                                         <p className="text-sm text-violet-200/80">
                                                             Tahun {model.year}
                                                         </p>
                                                     </div>
+
                                                     <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1 text-xs text-white/70">
                                                         {
                                                             model.fuelEfficiencyKmPerLiter
@@ -478,6 +548,7 @@ export function FuelEstimatorApp() {
                                                         km/L
                                                     </span>
                                                 </div>
+
                                                 <p className="text-sm leading-7 text-white/60">
                                                     {model.description}
                                                 </p>
@@ -503,6 +574,7 @@ export function FuelEstimatorApp() {
                         <p className="text-sm uppercase tracking-[0.3em] text-violet-200/80">
                             Kalkulasi Volume Bensin
                         </p>
+
                         <h3 className="mt-2 text-2xl font-semibold">
                             Hitung estimasi jarak yang dapat ditempuh
                         </h3>
@@ -512,11 +584,13 @@ export function FuelEstimatorApp() {
                                 <p className="text-sm text-white/55">
                                     Kendaraan terpilih
                                 </p>
+
                                 <p className="mt-2 text-xl font-semibold">
                                     {selectedModel
                                         ? `${selectedBrand?.name} ${selectedModel.name} ${selectedModel.year}`
                                         : "Belum ada kendaraan yang dipilih"}
                                 </p>
+
                                 <p className="mt-2 text-sm text-white/60">
                                     {selectedModel
                                         ? `${selectedModel.fuelEfficiencyKmPerLiter} km/L | kapasitas tangki ${selectedModel.tankCapacityLiters} L`
@@ -528,6 +602,7 @@ export function FuelEstimatorApp() {
                                 <span className="text-sm text-white/60">
                                     Volume bensin (Liter)
                                 </span>
+
                                 <input
                                     type="number"
                                     min="0.1"
@@ -564,6 +639,7 @@ export function FuelEstimatorApp() {
                         <p className="text-sm uppercase tracking-[0.3em] text-violet-200/80">
                             Hasil Estimasi
                         </p>
+
                         <h3 className="mt-2 text-2xl font-semibold">
                             {rangeResult
                                 ? "Estimasi siap dibaca"
@@ -576,10 +652,12 @@ export function FuelEstimatorApp() {
                                     <p className="text-sm text-white/55">
                                         Kendaraan
                                     </p>
+
                                     <p className="mt-2 text-lg font-semibold">
                                         {rangeResult.vehicleName}
                                     </p>
                                 </div>
+
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <StatCard
                                         label="Jarak maksimum"
@@ -587,18 +665,21 @@ export function FuelEstimatorApp() {
                                             rangeResult.estimatedRangeKm
                                         )} km`}
                                     />
+
                                     <StatCard
                                         label="Jarak aman"
                                         value={`${formatNumber(
                                             rangeResult.safeRangeKm
                                         )} km`}
                                     />
+
                                     <StatCard
                                         label="Efisiensi rata-rata"
                                         value={`${formatNumber(
                                             rangeResult.fuelEfficiencyKmPerLiter
                                         )} km/L`}
                                     />
+
                                     <StatCard
                                         label="Isi tangki saat ini"
                                         value={`${formatNumber(
@@ -606,6 +687,7 @@ export function FuelEstimatorApp() {
                                         )}%`}
                                     />
                                 </div>
+
                                 <div className="rounded-[1.5rem] border border-violet-300/20 bg-violet-500/10 p-5 text-sm leading-7 text-violet-100/90">
                                     Saran aman: gunakan estimasi jarak aman
                                     sebagai patokan perjalanan agar tetap ada
@@ -626,18 +708,20 @@ export function FuelEstimatorApp() {
                     className="rounded-[2rem] border border-white/10 bg-white/5 p-6"
                     delayMs={200}
                 >
-                    <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+                    <div className="grid gap-6 lg:grid-cols-2">
                         <div>
                             <p className="text-sm uppercase tracking-[0.3em] text-violet-200/80">
                                 GEBDT
                             </p>
+
                             <h3 className="mt-2 text-2xl font-semibold">
                                 Gasoline Estimate Based on Distance Traveled
                             </h3>
+
                             <p className="mt-3 max-w-2xl text-sm leading-7 text-white/65">
                                 Gunakan GPS lokasi saat ini, lalu masukkan
                                 tujuan berupa nama tempat, alamat, kota, atau
-                                koordinat `lat,lng`. Sistem akan memperkirakan
+                                koordinat lat,lng. Sistem akan memperkirakan
                                 jarak dan kebutuhan bensin untuk menempuh rute
                                 tersebut.
                             </p>
@@ -652,6 +736,7 @@ export function FuelEstimatorApp() {
                                     <span className="block text-sm text-white/60">
                                         Lokasi awal
                                     </span>
+
                                     <span className="mt-2 block text-lg font-semibold">
                                         {isLocating
                                             ? "Mengambil koordinat GPS..."
@@ -671,6 +756,7 @@ export function FuelEstimatorApp() {
                                     <span className="text-sm text-white/60">
                                         Tujuan perjalanan
                                     </span>
+
                                     <input
                                         type="text"
                                         value={destinationQuery}
@@ -705,16 +791,19 @@ export function FuelEstimatorApp() {
 
                         <div className="rounded-[1.75rem] border border-violet-400/20 bg-[linear-gradient(180deg,_rgba(19,10,31,0.98),_rgba(8,6,14,0.98))] p-5">
                             <p className="text-sm text-white/55">Hasil GEBDT</p>
+
                             {tripResult ? (
                                 <div className="mt-4 grid gap-4">
                                     <div className="rounded-[1.25rem] border border-white/10 bg-white/5 p-4">
                                         <p className="text-sm text-white/55">
                                             Tujuan
                                         </p>
+
                                         <p className="mt-2 text-lg font-semibold">
                                             {tripResult.destinationLabel}
                                         </p>
                                     </div>
+
                                     <div className="grid gap-4 sm:grid-cols-2">
                                         <StatCard
                                             label="Estimasi jarak"
@@ -722,18 +811,21 @@ export function FuelEstimatorApp() {
                                                 tripResult.distanceKm
                                             )} km`}
                                         />
+
                                         <StatCard
                                             label="Bensin terpakai"
                                             value={`${formatNumber(
                                                 tripResult.estimatedFuelUsedLiters
                                             )} L`}
                                         />
+
                                         <StatCard
                                             label="Cadangan disarankan"
                                             value={`${formatNumber(
                                                 tripResult.recommendedFuelBufferLiters
                                             )} L`}
                                         />
+
                                         <StatCard
                                             label="Efisiensi kendaraan"
                                             value={`${formatNumber(
@@ -741,6 +833,7 @@ export function FuelEstimatorApp() {
                                             )} km/L`}
                                         />
                                     </div>
+
                                     {tripResult.isEnoughFuel !== null ? (
                                         <div
                                             className={`rounded-[1.25rem] border px-4 py-4 text-sm leading-7 ${
@@ -787,9 +880,11 @@ export function FuelEstimatorApp() {
                         <p className="text-sm uppercase tracking-[0.3em] text-violet-200/80">
                             Kenapa Web Ini Berguna
                         </p>
+
                         <h3 className="mt-2 text-2xl font-semibold">
                             Dirancang untuk meminimalisir kehabisan bensin
                         </h3>
+
                         <div className="mt-5 grid gap-3">
                             {[
                                 "Membantu pengendara merencanakan isi bensin sebelum perjalanan.",
@@ -811,27 +906,34 @@ export function FuelEstimatorApp() {
                         <p className="text-sm uppercase tracking-[0.3em] text-violet-100/85">
                             Credit
                         </p>
+
                         <h3 className="mt-2 text-2xl font-semibold">
                             Pembuat & Asisten
                         </h3>
+
                         <div className="mt-5 grid gap-4">
                             <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
                                 <p className="text-sm text-white/55">
                                     Pembuat Web
                                 </p>
+
                                 <p className="mt-2 text-xl font-semibold">
                                     Anda
                                 </p>
+
                                 <p className="mt-2 text-sm text-white/65">
                                     Pengembang utama web untuk kebutuhan Projek
                                     Akhir Jenjang.
                                 </p>
                             </div>
+
                             <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
                                 <p className="text-sm text-white/55">Asisten</p>
+
                                 <p className="mt-2 text-xl font-semibold">
                                     TRAE AI
                                 </p>
+
                                 <p className="mt-2 text-sm text-white/65">
                                     Membantu perancangan UI/UX, backend
                                     TypeScript, dan alur estimasi.
@@ -845,6 +947,7 @@ export function FuelEstimatorApp() {
             <footer className="border-t border-white/10 bg-black/30">
                 <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 lg:px-10">
                     <p className="text-lg font-semibold">{WEBSITE_NAME}</p>
+
                     <p className="max-w-3xl text-sm leading-7 text-white/60">
                         Web estimasi bensin responsif untuk mengetahui perkiraan
                         jarak tempuh kendaraan motor maupun mobil berdasarkan
@@ -861,6 +964,7 @@ function StatCard({ label, value }: { label: string; value: string }) {
     return (
         <div className="rounded-[1.25rem] border border-white/10 bg-white/5 p-4">
             <p className="text-sm text-white/55">{label}</p>
+
             <p className="mt-2 text-2xl font-semibold">{value}</p>
         </div>
     );
@@ -881,13 +985,11 @@ function RemoteImage({
 }) {
     return (
         <div className={`relative overflow-hidden ${containerClassName}`}>
-            <Image
+            <img
                 src={src}
                 alt={alt}
-                fill
-                priority={priority}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className={imageClassName}
+                loading={priority ? "eager" : "lazy"}
+                className={`h-full w-full ${imageClassName}`}
             />
         </div>
     );

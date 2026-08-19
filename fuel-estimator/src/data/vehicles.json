@@ -1,0 +1,166 @@
+{
+  "websiteName": "Fuel Estimator",
+  "categories": {
+    "motor": {
+      "label": "Motor",
+      "subtitle": "Estimasi bensin untuk berbagai jenis sepeda motor populer.",
+      "image": "https://www.pngitem.com/pimgs/m/225-2256345_transparent-sepeda-motor-png-honda-beat-2019-png.png",
+      "brands": [
+        {
+          "id": "honda",
+          "name": "Honda",
+          "description": "Katalog sepeda motor Honda.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg",
+          "models": [
+            {
+              "id": "beat-2019",
+              "name": "Beat",
+              "year": 2019,
+              "description": "Honda Beat generasi populer dengan konsumsi bahan bakar yang irit.",
+              "image": "https://www.pngitem.com/pimgs/m/225-2256345_transparent-sepeda-motor-png-honda-beat-2019-png.png",
+              "fuelEfficiencyKmPerLiter": 55,
+              "tankCapacityLiters": 4.0
+            },
+            {
+              "id": "vario-125-2023",
+              "name": "Vario 125",
+              "year": 2023,
+              "description": "Skutik Honda 125 cc dengan efisiensi bahan bakar untuk penggunaan harian.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Honda_Vario_125_2023.jpg/640px-Honda_Vario_125_2023.jpg",
+              "fuelEfficiencyKmPerLiter": 50,
+              "tankCapacityLiters": 5.5
+            },
+            {
+              "id": "vario-160-2023",
+              "name": "Vario 160",
+              "year": 2023,
+              "description": "Skutik Honda 160 cc untuk penggunaan harian dan perjalanan jarak jauh.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Honda_Vario_125_2023.jpg/640px-Honda_Vario_125_2023.jpg",
+              "fuelEfficiencyKmPerLiter": 45,
+              "tankCapacityLiters": 5.5
+            }
+          ]
+        },
+        {
+          "id": "yamaha",
+          "name": "Yamaha",
+          "description": "Katalog sepeda motor Yamaha.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/9/95/Yamaha_Motor_Logo.svg",
+          "models": [
+            {
+              "id": "nmax-2023",
+              "name": "NMAX",
+              "year": 2023,
+              "description": "Skutik Yamaha dengan mesin 155 cc dan tangki bahan bakar berkapasitas besar.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yamaha_NMAX_155.jpg/640px-Yamaha_NMAX_155.jpg",
+              "fuelEfficiencyKmPerLiter": 40,
+              "tankCapacityLiters": 6.6
+            },
+            {
+              "id": "aerox-2023",
+              "name": "Aerox 155",
+              "year": 2023,
+              "description": "Skutik sporty Yamaha dengan mesin 155 cc.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Yamaha_Aerox_155.jpg/640px-Yamaha_Aerox_155.jpg",
+              "fuelEfficiencyKmPerLiter": 42,
+              "tankCapacityLiters": 5.5
+            }
+          ]
+        },
+        {
+          "id": "suzuki",
+          "name": "Suzuki",
+          "description": "Katalog sepeda motor Suzuki.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg",
+          "models": [
+            {
+              "id": "address-2022",
+              "name": "Address",
+              "year": 2022,
+              "description": "Skutik Suzuki dengan konsumsi bahan bakar yang efisien.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Suzuki_Address.jpg/640px-Suzuki_Address.jpg",
+              "fuelEfficiencyKmPerLiter": 50,
+              "tankCapacityLiters": 5.2
+            }
+          ]
+        }
+      ]
+    },
+    "mobil": {
+      "label": "Mobil",
+      "subtitle": "Estimasi bensin untuk berbagai jenis mobil populer.",
+      "image": "https://png.pngtree.com/png-clipart/20220921/ourmid/pngtree-latest-red-car-illustration-png-image_6208249.png",
+      "brands": [
+        {
+          "id": "toyota",
+          "name": "Toyota",
+          "description": "Katalog mobil Toyota.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg",
+          "models": [
+            {
+              "id": "avanza-2023",
+              "name": "Avanza",
+              "year": 2023,
+              "description": "MPV Toyota yang umum digunakan untuk kebutuhan keluarga dan perjalanan.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Toyota_Avanza_2022.jpg/640px-Toyota_Avanza_2022.jpg",
+              "fuelEfficiencyKmPerLiter": 14,
+              "tankCapacityLiters": 43
+            },
+            {
+              "id": "innova-2023",
+              "name": "Innova",
+              "year": 2023,
+              "description": "MPV Toyota untuk perjalanan keluarga dan jarak jauh.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Toyota_Innova_2020.jpg/640px-Toyota_Innova_2020.jpg",
+              "fuelEfficiencyKmPerLiter": 12,
+              "tankCapacityLiters": 55
+            }
+          ]
+        },
+        {
+          "id": "honda",
+          "name": "Honda",
+          "description": "Katalog mobil Honda.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg",
+          "models": [
+            {
+              "id": "brio-2023",
+              "name": "Brio",
+              "year": 2023,
+              "description": "City car Honda dengan ukuran kompak dan konsumsi bahan bakar efisien.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Honda_Brio_2023.jpg/640px-Honda_Brio_2023.jpg",
+              "fuelEfficiencyKmPerLiter": 17,
+              "tankCapacityLiters": 35
+            },
+            {
+              "id": "city-hatchback-2023",
+              "name": "City Hatchback",
+              "year": 2023,
+              "description": "Hatchback Honda untuk penggunaan dalam kota dan perjalanan luar kota.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Honda_City_Hatchback.jpg/640px-Honda_City_Hatchback.jpg",
+              "fuelEfficiencyKmPerLiter": 16,
+              "tankCapacityLiters": 40
+            }
+          ]
+        },
+        {
+          "id": "suzuki",
+          "name": "Suzuki",
+          "description": "Katalog mobil Suzuki.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg",
+          "models": [
+            {
+              "id": "ertiga-2023",
+              "name": "Ertiga",
+              "year": 2023,
+              "description": "MPV Suzuki dengan kapasitas penumpang dan efisiensi bahan bakar yang seimbang.",
+              "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Suzuki_Ertiga_2022.jpg/640px-Suzuki_Ertiga_2022.jpg",
+              "fuelEfficiencyKmPerLiter": 15,
+              "tankCapacityLiters": 45
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
