@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import vehicleData from "@/data/vehicles.json";
 import { RevealSection } from "@/components/reveal-section";
-
 type VehicleCategory = "motor" | "mobil";
 
 type VehicleModel = {

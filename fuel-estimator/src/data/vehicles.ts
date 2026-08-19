@@ -1,4 +1,4 @@
-import vehicles from "./vehicles.json";
+import vehicleData from "./vehicles.json";
 
 export type VehicleCategory = "motor" | "mobil";
 
@@ -27,19 +27,14 @@ export type VehicleCategoryData = {
     brands: VehicleBrand[];
 };
 
-type VehiclesDatabase = {
-    websiteName: string;
-    categories: Record<VehicleCategory, VehicleCategoryData>;
-};
+export const vehicleCatalog = vehicleData.categories as Record<
+    VehicleCategory,
+    VehicleCategoryData
+>;
 
-const database = vehicles as VehiclesDatabase;
+export const WEBSITE_NAME = vehicleData.websiteName;
 
-export const vehicleCatalog: Record<VehicleCategory, VehicleCategoryData> =
-    database.categories;
-
-export const WEBSITE_NAME = database.websiteName;
-
-export function getVehicle(
+export function findVehicle(
     category: VehicleCategory,
     brandId: string,
     modelId: string
