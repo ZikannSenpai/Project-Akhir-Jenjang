@@ -6,8 +6,8 @@ export type VehicleModel = {
     id: string;
     name: string;
     year: number;
-    image: string;
     description: string;
+    image: string;
     fuelEfficiencyKmPerLiter: number;
     tankCapacityLiters: number;
 };
@@ -15,6 +15,7 @@ export type VehicleModel = {
 export type VehicleBrand = {
     id: string;
     name: string;
+    description: string;
     image: string;
     models: VehicleModel[];
 };
@@ -26,10 +27,17 @@ export type VehicleCategoryData = {
     brands: VehicleBrand[];
 };
 
-export const vehicleCatalog: Record<VehicleCategory, VehicleCategoryData> =
-    vehicles as Record<VehicleCategory, VehicleCategoryData>;
+type VehiclesDatabase = {
+    websiteName: string;
+    categories: Record<VehicleCategory, VehicleCategoryData>;
+};
 
-export const WEBSITE_NAME = "Fuel Estimator";
+const database = vehicles as VehiclesDatabase;
+
+export const vehicleCatalog: Record<VehicleCategory, VehicleCategoryData> =
+    database.categories;
+
+export const WEBSITE_NAME = database.websiteName;
 
 export function getVehicle(
     category: VehicleCategory,
@@ -37,6 +45,10 @@ export function getVehicle(
     modelId: string
 ) {
     const categoryData = vehicleCatalog[category];
+
+    if (!categoryData) {
+        return null;
+    }
 
     const brand = categoryData.brands.find(item => item.id === brandId);
 
