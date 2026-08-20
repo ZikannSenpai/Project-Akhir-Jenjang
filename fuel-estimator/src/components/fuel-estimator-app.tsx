@@ -906,9 +906,7 @@ export function FuelEstimatorApp() {
                             Credit
                         </p>
 
-                        <h3 className="mt-2 text-2xl font-semibold">
-                            Pembuat & Asisten
-                        </h3>
+                        <h3 className="mt-2 text-2xl font-semibold">Credit</h3>
 
                         <div className="mt-5 grid gap-4">
                             <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
@@ -921,21 +919,46 @@ export function FuelEstimatorApp() {
                                 </p>
 
                                 <p className="mt-2 text-sm text-white/65">
-                                    Pengembang utama web untuk kebutuhan Projek
-                                    Akhir Jenjang.
+                                    Pengembang utama web & Bendahara dalam
+                                    Projek Akhir Jenjang.
                                 </p>
                             </div>
 
                             <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
-                                <p className="text-sm text-white/55">Asisten</p>
+                                <p className="text-sm text-white/55">Ketua</p>
 
                                 <p className="mt-2 text-xl font-semibold">
-                                    Anggota kelompok
+                                    Dzaki Ananda
                                 </p>
 
                                 <p className="mt-2 text-sm text-white/65">
-                                    Membantu perancangan UI/UX, backend
-                                    TypeScript, dan alur estimasi.
+                                    Selaku Ketua Project.
+                                </p>
+                            </div>
+
+                            <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+                                <p className="text-sm text-white/55">
+                                    Sekretaris
+                                </p>
+
+                                <p className="mt-2 text-xl font-semibold">
+                                    Galang Eka
+                                </p>
+
+                                <p className="mt-2 text-sm text-white/65">
+                                    Selaku Sekretaris Project.
+                                </p>
+                            </div>
+                            <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+                                <p className="text-sm text-white/55">Anggota</p>
+
+                                <p className="mt-2 text-xl font-semibold">
+                                    Wahid Rahmat
+                                </p>
+                                <p className="mt-2 text-xl font-semibold">-</p>
+
+                                <p className="mt-2 text-sm text-white/65">
+                                    Selaku Anggota Project.
                                 </p>
                             </div>
                         </div>
