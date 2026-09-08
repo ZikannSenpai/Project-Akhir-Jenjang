@@ -45,7 +45,7 @@
                     "id": "yamaha",
                     "name": "Yamaha",
                     "description": "Katalog sepeda motor Yamaha.",
-                    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Suzuki_logo_2025.svg",
+                    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Yamaha_Motor_Logo_%28full%29.svg/",
                     "models": [
                         {
                             "id": "nmax-2023",
@@ -71,7 +71,7 @@
                     "id": "suzuki",
                     "name": "Suzuki",
                     "description": "Katalog sepeda motor Suzuki.",
-                    "image": "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg",
+                    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Suzuki_logo_2025.svg",
                     "models": [
                         {
                             "id": "address-2022",
