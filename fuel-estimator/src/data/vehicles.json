@@ -78,7 +78,7 @@
                             "name": "Address",
                             "year": 2022,
                             "description": "Skutik Suzuki dengan konsumsi bahan bakar yang efisien.",
-                            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Suzuki_Address.jpg/640px-Suzuki_Address.jpg",
+                            "image": "https://suzukicdn.com/assets/static/img/variant/ADDRESS_PEARL_BRILLIANT_WHITE_1.webp",
                             "fuelEfficiencyKmPerLiter": 50,
                             "tankCapacityLiters": 5.2
                         }
