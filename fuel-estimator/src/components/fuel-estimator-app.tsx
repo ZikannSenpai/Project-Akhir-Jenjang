@@ -956,6 +956,10 @@ export function FuelEstimatorApp() {
                                     Wahid Rahmat
                                 </p>
                                 <p className="mt-2 text-xl font-semibold">-</p>
+                                <p className="mt-2 text-xl font-semibold">
+                                    Azahra Putu Andrian
+                                </p>
+                                <p className="mt-2 text-xl font-semibold">-</p>
 
                                 <p className="mt-2 text-sm text-white/65">
                                     Selaku Anggota Project.
