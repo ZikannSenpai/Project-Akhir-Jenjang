@@ -147,14 +147,14 @@
                     "id": "suzuki",
                     "name": "Suzuki",
                     "description": "Katalog mobil Suzuki.",
-                    "image": "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg",
+                    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Suzuki_logo_2025.svg/1280px-Suzuki_logo_2025.svg.png",
                     "models": [
                         {
                             "id": "ertiga-2023",
                             "name": "Ertiga",
                             "year": 2023,
                             "description": "MPV Suzuki dengan kapasitas penumpang dan efisiensi bahan bakar yang seimbang.",
-                            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Suzuki_Ertiga_2022.jpg/640px-Suzuki_Ertiga_2022.jpg",
+                            "image": "https://thumb.katadata.co.id/frontend/thumbnail/2023/02/24/zigi-63f81cc1bc0c4-diskon-suzuki-ertiga-di-iims-2023-rp25-juta_910_512.jpg",
                             "fuelEfficiencyKmPerLiter": 15,
                             "tankCapacityLiters": 45
                         }
