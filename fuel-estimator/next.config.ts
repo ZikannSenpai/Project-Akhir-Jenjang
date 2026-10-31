@@ -10,10 +10,6 @@ const nextConfig: NextConfig = {
             {
                 protocol: "https",
                 hostname: "www.pngitem.com"
-            },
-            {
-                protocol: "https",
-                hostname: "image.pollinations.ai"
             }
         ]
     }
